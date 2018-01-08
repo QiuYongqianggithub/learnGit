@@ -1,3 +1,4 @@
-1111
-2222
-3333
+git init  在工作区创建一个git本地仓库
+git diff readme.md  查看修改之后再add比较放心
+git add readme.me  添加到暂存区
+git commit -a '注释'  提交到本地版本库
