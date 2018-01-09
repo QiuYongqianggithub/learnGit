@@ -1,0 +1,17 @@
+
+工作区
+工作区中的文件也接受.git（版本库）的管理
+
+工作区文件有修改：  
+modified:   readme.txt
+
+工作区有新增文件：
+Untracked files: 
+haha.txt
+
+git diff      #是工作区(work dict)和暂存区(stage)的比较
+git diff --cached    #是暂存区(stage)和分支(master)的比较
+
+
+git add命令实际上就是把要提交的所有修改放到暂存区（此时工作区是干净的），
+然后执行git commit就可以一次性把暂存区的所有修改提交到分支（此时暂存区已经空了）。

@@ -1,0 +1,10 @@
+git init  在工作区创建一个git本地仓库
+git diff readme.md  查看修改之后再add比较放心
+		git diff `文件名` 这个命令只能查修改了但是还没add的文件
+		一旦使用了git add就无法使用git diff 来进行查看了
+git add readme.me  添加到暂存区
+git commit -a '注释'  提交到本地版本库
+
+git log    显示从最近到最远的提交日志
+git log --pretty=oneline   简略日志
+

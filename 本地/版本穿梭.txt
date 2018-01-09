@@ -1,0 +1,65 @@
+要想实现版本穿梭，必须知道当前版本号，
+用HEAD表示当前版本，也就是最新的提交，
+上一个版本就是HEAD^，上上一个版本就是HEAD^^，
+当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+
+git reset --hard HEAD^      到达上一个版本
+git reset --hard 3628164    到达指定版本
+
+git reflog  用来记录你的每一次命令
+git log      可以查看提交历史，以便确定要回退到哪个版本
+
+使用：
+log：'update README.txt and LICENSE.txt'
+git diff可以看两个版本的差异
+
+问：回退的问题
+我执行了git log --pretty=oneline拿到commit ID后执行回退
+
+git reset --hard commit ID
+
+但是工作区的内容回退到以前的代码，远程库里面没改变，
+我有执行 git add * ....
+当我去执行git push的时候提示：
+On branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+让我先拉取，我拉取的话远程库的代码会又回到本地工作区里，这不是没回退一样么？
+
+
+
+廖雪峰答：
+
+假设一开始你的本地和远程都是：
+
+a -> b -> c
+
+你想把HEAD回退到b，那么在本地就变成了：
+
+a -> b
+
+这个时候，如果没有远程库，你就接着怎么操作都行，比如：
+
+a -> b -> d
+
+但是在有远程库的情况下，你push会失败，因为远程库是 a->b->c，你的是 a->b->d
+
+两种方案：
+
+方案一：push的时候用--force，强制把远程库变成a -> b -> d，大部分公司严禁这么干，会被别人揍一顿
+
+方案二：做一个反向操作，把自己本地变成a -> b -> c -> d，注意b和d文件快照内容一模一样，
+但是commit id肯定不同，
+再push上去远程也会变成 a -> b -> c -> d
+
+简单地说就是你无法轻易地抹去远程库的提交信息，所以本地提交怎么都行，push前想好了
+
+
+问：反向操作？
+
+答：
+使用 git revert <commit_id>操作实现以退为进，
+git revert 不同于 git reset  它不会擦除"回退"之后的 commit_id ,
+而是正常的当做一次"commit"，产生一次新的操作记录，所以可以push，不会让你再pull
