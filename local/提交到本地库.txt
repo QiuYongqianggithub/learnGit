@@ -8,3 +8,4 @@ git commit -a '注释'  提交到本地版本库
 git log    显示从最近到最远的提交日志
 git log --pretty=oneline   简略日志
 
+一次提交多个文件，回退的时候也只能一次回退全部文件
